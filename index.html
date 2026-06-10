@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tools</title>
+  <meta name="description" content="A personal hub of practical calculators, maps, planners, and experiments built for everyday use.">
+  <meta name="theme-color" content="#eef2f8">
+  <meta property="og:title" content="My Tools">
+  <meta property="og:description" content="A personal hub of practical calculators, maps, planners, and experiments built for everyday use.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%231d3fe8'/%3E%3Cstop offset='100%25' stop-color='%230fb88a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='630' fill='%23eef2f8'/%3E%3Crect x='90' y='90' width='1020' height='450' rx='48' fill='url(%23g)'/%3E%3Ctext x='150' y='290' fill='white' font-family='Arial,sans-serif' font-size='78' font-weight='700'%3EMy Tools%3C/text%3E%3Ctext x='150' y='380' fill='rgba(255,255,255,0.88)' font-family='Arial,sans-serif' font-size='34'%3ECalculators, maps, planners, and experiments%3C/text%3E%3C/svg%3E">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- SVG favicon embedded as data URI -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%231d3fe8'/%3E%3Cstop offset='100%25' stop-color='%230fb88a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M22 9.5a4.5 4.5 0 0 0-6.36 6.36L9.5 22a1.5 1.5 0 0 0 2.12 2.12l6.14-6.14A4.5 4.5 0 0 0 24 14a4.43 4.43 0 0 0-.5-2l-2 2-1.5-1.5 2-2A4.43 4.43 0 0 0 20 10' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+  <style>
+    :root {
+      --bg: #eef2f8;
+      --ink: #0d1421;
+      --muted: #5a6a80;
+      --panel: rgba(255, 255, 255, 0.88);
+      --panel-solid: #ffffff;
+      --line: rgba(30, 45, 72, 0.10);
+      --shadow-sm: 0 2px 8px rgba(20,30,50,0.07);
+      --shadow: 0 12px 40px rgba(20,30,55,0.12);
+      --shadow-lg: 0 24px 80px rgba(20,30,55,0.18);
+      --blue: #2563eb;
+      --green: #0f9f82;
+      --rose: #e03668;
+      --amber: #c77b16;
+      --violet: #7557d8;
+      --sky: #0284c7;
+      --radius: 12px;
+      --radius-lg: 18px;
+      --max: 1200px;
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      background: rgba(238, 242, 248, 0.82);
+      border-bottom: 1px solid var(--line);
+      transition: box-shadow 200ms;
+    }
+    .topbar.scrolled { box-shadow: 0 4px 24px rgba(20,30,55,0.09); }
+
+    .topbar-inner {
+      width: min(var(--max), calc(100% - 40px));
+      min-height: 64px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    /* ── BRAND ── */
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1d3fe8 0%, #0fb88a 100%);
+      box-shadow: 0 6px 18px rgba(37,99,235,0.28), inset 0 1px 0 rgba(255,255,255,0.18);
+      flex-shrink: 0;
+    }
+    .brand-mark svg {
+      width: 20px; height: 20px;
+      display: block;
+      fill: none;
+      stroke: white;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .brand-text strong { display: block; line-height: 1; }
+    .brand-text small {
+      display: block;
+      color: var(--muted);
+      font-size: 11.5px;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    /* ── NAV ── */
+    .nav { display: flex; gap: 4px; align-items: center; }
+    .nav a {
+      padding: 8px 13px;
+      border-radius: 8px;
+      color: #3a4a60;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: background 140ms, color 140ms;
+    }
+    .nav a:hover { background: rgba(255,255,255,0.9); color: var(--ink); }
+    .nav-cta {
+      display: inline-flex !important;
+      align-items: center;
+      gap: 7px;
+      background: var(--ink) !important;
+      color: white !important;
+      font-weight: 700 !important;
+      transition: opacity 160ms !important;
+    }
+    .nav-cta:hover { opacity: 0.82; background: var(--ink) !important; }
+    .nav-cta svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.2; fill: none; }
+
+    /* ── HERO ── */
+    .hero {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      padding: 72px 0 48px;
+      display: grid;
+      grid-template-columns: minmax(0,1fr) 400px;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid rgba(37,99,235,0.18);
+      border-radius: 999px;
+      background: rgba(37,99,235,0.07);
+      color: #2053c5;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 20px;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #2563eb;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.4; transform:scale(0.65); }
+    }
+
+    h1 {
+      font-size: clamp(40px, 5.5vw, 78px);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    .accent-word {
+      background: linear-gradient(120deg, var(--blue) 20%, var(--green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-body {
+      color: #4a5a72;
+      font-size: 17px;
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 32px;
+    }
+    .btn-primary, .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform 150ms, box-shadow 150ms, opacity 150ms;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #1a2f58, #0d1a35);
+      color: white;
+      box-shadow: 0 8px 24px rgba(15,22,40,0.22);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(15,22,40,0.28); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.88);
+      color: #263246;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-secondary:hover { background: white; transform: translateY(-1px); }
+    .btn-icon { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2.2; fill: none; flex-shrink: 0; }
+
+    /* ── ORBIT ── */
+    .orbit-wrap {
+      position: relative;
+      min-height: 420px;
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.7) 42%, rgba(255,255,255,0.18) 65%, transparent 70%),
+        linear-gradient(145deg, rgba(255,255,255,0.8), rgba(255,255,255,0.28));
+      border: 1px solid rgba(255,255,255,0.82);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .orbit-wrap::before, .orbit-wrap::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px dashed rgba(36,53,81,0.15);
+    }
+    .orbit-wrap::before { inset: 48px; transform: rotate(-10deg) scaleX(1.14); }
+    .orbit-wrap::after  { inset: 96px; transform: rotate(16deg) scaleX(1.06); }
+
+    .orbit-center {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 162px; min-height: 162px;
+      transform: translate(-50%,-50%);
+      display: grid; place-items: center;
+      text-align: center;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #172033, #26364f);
+      box-shadow: 0 20px 48px rgba(20,30,55,0.3);
+      z-index: 2;
+      padding: 20px;
+    }
+    .orbit-center strong { display: block; font-size: 38px; line-height: 1; color: white; font-weight: 800; }
+    .orbit-center span { display: block; margin-top: 7px; color: rgba(255,255,255,0.72); font-size: 12px; font-weight: 600; line-height: 1.4; }
+
+    .orbit-node {
+      position: absolute;
+      width: 64px; height: 64px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      color: white;
+      background: var(--node-color);
+      box-shadow: 0 12px 28px rgba(28,39,58,0.22);
+      z-index: 3;
+      transition: transform 200ms;
+    }
+    .orbit-node:hover { transform: scale(1.12); }
+    .orbit-node:nth-of-type(1) { left: 44px; top: 62px; }
+    .orbit-node:nth-of-type(2) { right: 42px; top: 74px; }
+    .orbit-node:nth-of-type(3) { right: 68px; bottom: 50px; }
+    .orbit-node:nth-of-type(4) { left: 62px; bottom: 56px; }
+    .orbit-node svg { width: 28px; height: 28px; stroke: currentColor; stroke-width: 1.8; fill: none; }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto 32px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 12px;
+    }
+    .stat {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow-sm);
+      transition: transform 160ms, box-shadow 160ms;
+    }
+    .stat:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .stat strong { display: block; font-size: 30px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
+    .stat span { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.4; }
+
+    /* ── WORKSPACE ── */
+    .workspace {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto 80px;
+      display: grid;
+      grid-template-columns: 268px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .control-panel {
+      position: sticky;
+      top: 78px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .search-wrap {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 12px; top: 50%;
+      width: 15px; height: 15px;
+      transform: translateY(-50%);
+      color: #8a9aaa;
+      stroke: currentColor; stroke-width: 2; fill: none;
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      min-height: 42px;
+      padding: 0 12px 0 36px;
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      color: var(--ink);
+      background: rgba(255,255,255,0.92);
+      outline: none;
+      font-size: 13.5px;
+      transition: border-color 140ms, box-shadow 140ms;
+    }
+    .search-input:focus {
+      border-color: rgba(37,99,235,0.38);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+    }
+    .search-input::placeholder { color: #a0aab8; }
+
+    .filter-title {
+      margin: 14px 0 8px;
+      color: #8a9aaa;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .chips { display: grid; gap: 5px; }
+    .chip {
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 10px 0 12px;
+      border: 1.5px solid transparent;
+      border-radius: 9px;
+      color: #3d4f66;
+      background: transparent;
+      cursor: pointer;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: background 120ms, border-color 120ms, box-shadow 120ms;
+    }
+    .chip:hover { background: var(--panel-solid); border-color: var(--line); }
+    .chip.active {
+      background: var(--panel-solid);
+      border-color: rgba(37,99,235,0.28);
+      box-shadow: 0 3px 12px rgba(37,99,235,0.1);
+      color: var(--ink);
+    }
+    .chip-count {
+      min-width: 26px; height: 22px;
+      display: grid; place-items: center;
+      border-radius: 999px;
+      background: #eef2f8;
+      color: #5a6a80;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .chip.active .chip-count { background: rgba(37,99,235,0.1); color: #2563eb; }
+
+    .panel-note {
+      margin: 16px 0 0;
+      padding: 12px 14px;
+      border-radius: 10px;
+      color: #4b5a6c;
+      background: rgba(15,159,130,0.07);
+      font-size: 12.5px;
+      line-height: 1.5;
+      border: 1px solid rgba(15,159,130,0.16);
+    }
+
+    /* ── SECTION HEAD ── */
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .section-head h2 {
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .section-head p { margin: 6px 0 0; color: var(--muted); font-size: 13.5px; }
+
+    .view-toggle {
+      display: inline-flex;
+      padding: 3px;
+      gap: 3px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.8);
+      flex-shrink: 0;
+    }
+    .view-toggle button {
+      width: 34px; height: 31px;
+      display: grid; place-items: center;
+      border: 0; border-radius: 7px;
+      color: #6a7a90;
+      background: transparent;
+      cursor: pointer;
+      transition: background 120ms, color 120ms, box-shadow 120ms;
+    }
+    .view-toggle button.active {
+      color: var(--ink);
+      background: white;
+      box-shadow: 0 2px 10px rgba(20,30,55,0.12);
+    }
+    .view-toggle svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    /* ── TOOL GRID ── */
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+    }
+    .tool-grid.compact { grid-template-columns: 1fr; }
+
+    .tool-card {
+      position: relative;
+      min-height: 258px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(var(--accent-rgb), 0.10) 0%, transparent 52%),
+        var(--panel-solid);
+      box-shadow: var(--shadow-sm);
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+      cursor: pointer;
+    }
+    .tool-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(var(--accent-rgb),0.07) 0%, transparent 58%);
+      opacity: 0;
+      transition: opacity 200ms;
+      pointer-events: none;
+    }
+    .tool-card:hover::after { opacity: 1; }
+    .tool-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(var(--accent-rgb), 0.28);
+      box-shadow: 0 16px 44px rgba(20,30,55,0.13);
+    }
+
+    .tool-grid.compact .tool-card {
+      min-height: auto;
+      display: grid;
+      grid-template-columns: auto minmax(0,1fr) auto;
+      grid-template-rows: auto auto;
+      gap: 16px;
+      align-items: start;
+      padding: 16px 18px;
+    }
+
+    .icon {
+      width: 50px; height: 50px;
+      display: grid; place-items: center;
+      border-radius: 12px;
+      color: white;
+      background: rgb(var(--accent-rgb));
+      box-shadow: 0 8px 20px rgba(var(--accent-rgb), 0.28);
+      flex-shrink: 0;
+    }
+    .icon svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 1.9; fill: none; display: block; stroke-linecap: round; stroke-linejoin: round; }
+
+    .tool-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .tool-grid.compact .tool-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      grid-column: 1 / -1;
+    }
+
+    .tool-grid.compact .tool-body {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .tool-grid.compact .tool-actions {
+      grid-column: 3;
+      grid-row: 2;
+      align-self: end;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid var(--line);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #4a5a72;
+      white-space: nowrap;
+    }
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgb(var(--accent-rgb));
+    }
+
+    .tool-body { flex: 1; }
+    .tool-card h3 {
+      margin: 16px 0 8px;
+      font-size: 18px;
+      font-weight: 750;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .tool-grid.compact .tool-card h3 { margin: 0 0 5px; font-size: 16px; }
+    .tool-card p { color: #566579; font-size: 13.5px; line-height: 1.55; }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    .tag {
+      padding: 4px 9px;
+      border-radius: 999px;
+      color: rgb(var(--accent-rgb));
+      background: rgba(var(--accent-rgb), 0.09);
+      border: 1px solid rgba(var(--accent-rgb), 0.16);
+      font-size: 11.5px;
+      font-weight: 650;
+    }
+
+    .tool-actions {
+      margin-top: auto;
+      padding-top: 18px;
+    }
+    .tool-grid.compact .tags { display: none; }
+    .tool-grid.compact .tool-actions { margin: 0; padding: 0; }
+
+    .open-tool {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 9px;
+      color: white;
+      background: rgb(var(--accent-rgb));
+      font-weight: 700;
+      font-size: 13.5px;
+      box-shadow: 0 5px 14px rgba(var(--accent-rgb), 0.3);
+      transition: transform 140ms, box-shadow 140ms, filter 140ms;
+    }
+    .open-tool:hover { transform: translateY(-1px); filter: brightness(1.08); box-shadow: 0 9px 20px rgba(var(--accent-rgb), 0.36); }
+    .open-tool svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2.5; fill: none; }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      display: none;
+      padding: 56px 32px;
+      border: 1.5px dashed rgba(52,68,92,0.2);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      background: rgba(255,255,255,0.5);
+    }
+    .empty.visible { display: block; }
+    .empty-icon { font-size: 36px; margin-bottom: 12px; }
+    .empty p { color: var(--muted); font-size: 15px; }
+
+    /* ── FOOTER ── */
+    .footer {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      color: #3a4a60;
+    }
+    .footer-mark {
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #1d3fe8, #0fb88a);
+      display: grid; place-items: center;
+    }
+    .footer-mark svg { width: 12px; height: 12px; stroke: white; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── ENTRANCE ANIMATIONS ── */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero > div { animation: fade-up 0.5s ease both; }
+    .hero > aside { animation: fade-up 0.5s 0.1s ease both; }
+    .stats-strip .stat:nth-child(1) { animation: fade-up 0.4s 0.05s ease both; }
+    .stats-strip .stat:nth-child(2) { animation: fade-up 0.4s 0.12s ease both; }
+    .stats-strip .stat:nth-child(3) { animation: fade-up 0.4s 0.18s ease both; }
+    .stats-strip .stat:nth-child(4) { animation: fade-up 0.4s 0.24s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1000px) {
+      .hero { grid-template-columns: 1fr; padding-top: 48px; }
+      .orbit-wrap { min-height: 320px; }
+      .workspace { grid-template-columns: 1fr; }
+      .control-panel { position: static; }
+      .chips { grid-template-columns: repeat(3, 1fr); }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .topbar-inner { flex-direction: column; align-items: flex-start; padding: 12px 0; min-height: auto; }
+      .nav { width: 100%; justify-content: space-between; }
+      h1 { font-size: 40px; }
+      .stats-strip, .tool-grid { grid-template-columns: 1fr; }
+      .tool-grid.compact .tool-card { grid-template-columns: 1fr; }
+      .section-head { flex-direction: column; align-items: flex-start; }
+      .chips { grid-template-columns: 1fr; }
+      .footer { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .orbit-node { width: 54px; height: 54px; }
+      .hero-body { font-size: 15.5px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+    :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOPBAR -->
+  <header class="topbar" id="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./index.html" aria-label="My Tools home">
+        <!-- New wrench/tool icon replacing old grid mark -->
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <strong>My Tools</strong>
+          <small>Built for fun &amp; convenience</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Page sections">
+        <a href="#tools">Browse</a>
+        <a href="#categories">Categories</a>
+        <a class="nav-cta" href="#tools">
+          Launch a tool
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <span class="eyebrow">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          8 tools ready to launch
+        </span>
+        <h1 id="page-title">A <span class="accent-word">playful</span> shelf of tools I built for real life.</h1>
+        <p class="hero-body">
+          I'm a software engineer — so naturally a small inconvenience becomes a web app.
+          Calculators, maps, dashboards, planners, and a few things just for fun.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#tools">
+            Browse tools
+            <svg class="btn-icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn-secondary" href="finance-calculator/index.html">
+            Open FinCalc
+            <svg class="btn-icon" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <aside class="orbit-wrap" aria-label="Tool categories preview">
+        <div class="orbit-center">
+          <div>
+            <strong>Mine</strong>
+            <span>Small apps, useful habits, curious builds</span>
+          </div>
+        </div>
+        <div class="orbit-node" style="--node-color: var(--blue)" title="Finance">
+          <svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 16V9M12 16V6M16 16v-4"/></svg>
+        </div>
+        <div class="orbit-node" style="--node-color: var(--green)" title="Maps">
+          <svg viewBox="0 0 24 24"><path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3zM9 3v15M15 6v15"/></svg>
+        </div>
+        <div class="orbit-node" style="--node-color: var(--rose)" title="Planning">
+          <svg viewBox="0 0 24 24"><path d="M7 3v4M17 3v4M4 9h16M5 5h14v16H5zM8 13h3M13 13h3M8 17h3"/></svg>
+        </div>
+        <div class="orbit-node" style="--node-color: var(--violet)" title="Explore">
+          <svg viewBox="0 0 24 24"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.2 6.4 20.1 7.5 14 3 9.6l6.2-.9L12 3z"/></svg>
+        </div>
+      </aside>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-strip" aria-label="Tool hub stats">
+      <div class="stat"><strong>8</strong><span>Personal tools in this little workshop.</span></div>
+      <div class="stat"><strong>5</strong><span>Built for quick everyday convenience.</span></div>
+      <div class="stat"><strong>3</strong><span>Made because the idea was fun enough to build.</span></div>
+      <div class="stat"><strong>5</strong><span>Ways to jump into the right helper fast.</span></div>
+    </section>
+
+    <!-- WORKSPACE -->
+    <section class="workspace" id="categories" aria-label="Tool browser">
+      <aside class="control-panel" aria-label="Filters">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+          <input id="search" class="search-input" type="search" placeholder="Search tools..." autocomplete="off" aria-label="Search tools">
+        </div>
+        <div class="filter-title">Categories</div>
+        <div class="chips" id="chips"></div>
+        <p class="panel-note">Every tool started as a practical itch, a weekend idea, or a small engineering experiment that made life a bit easier.</p>
+      </aside>
+
+      <div id="tools">
+        <div class="section-head">
+          <div>
+            <h2>Tool Library</h2>
+            <p id="result-summary">Showing every tool in my personal collection.</p>
+          </div>
+          <div class="view-toggle" aria-label="Display mode">
+            <button class="active" type="button" id="grid-view" title="Grid view" aria-label="Grid view">
+              <svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>
+            </button>
+            <button type="button" id="list-view" title="List view" aria-label="List view">
+              <svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="tool-grid" id="tool-grid"></div>
+        <div class="empty" id="empty-state">
+          <div class="empty-icon" aria-hidden="true">🔍</div>
+          <p>No tools match that search. Try another keyword or category.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span class="footer-brand">
+      <span class="footer-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      </span>
+      My Tools
+    </span>
+    <span>Personal tools, built one useful idea at a time.</span>
+  </footer>
+</div>
+
+<script>
+  // Topbar scroll shadow
+  const topbar = document.getElementById('topbar');
+  window.addEventListener('scroll', () => {
+    topbar.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive: true });
+
+  // Mouse-follow spotlight glow per card
+  document.addEventListener('mousemove', e => {
+    const card = e.target.closest?.('.tool-card');
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+    card.style.setProperty('--my', ((e.clientY - r.top)  / r.height * 100) + '%');
+  });
+
+  const icons = {
+    calendar:     '<svg viewBox="0 0 24 24"><path d="M7 3v4M17 3v4M4 9h16M5 5h14v16H5zM8 13h3M13 13h3M8 17h3"/></svg>',
+    childcare:    '<svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/><path d="M9 14h6"/></svg>',
+    finance:      '<svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 16V9M12 16V6M16 16v-4"/></svg>',
+    map:          '<svg viewBox="0 0 24 24"><path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3zM9 3v15M15 6v15"/></svg>',
+    transactions: '<svg viewBox="0 0 24 24"><path d="M4 7h16M7 11h10M7 15h7M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/></svg>',
+    space:        '<svg viewBox="0 0 24 24"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.2 6.4 20.1 7.5 14 3 9.6l6.2-.9L12 3z"/></svg>'
+  };
+
+  const tools = [
+    { name:'Victoria Calendar I Actually Use', category:'Planning',  status:'Planning helper',  path:'calendar/index.html',                   url:'https://calendar.niuruihua.com', accent:'220, 63, 108', icon:'calendar',     description:'A clean date companion for checking Victorian school terms, holidays, and plans without opening a heavy calendar app.',       tags:['Dates','Victoria','Plans'] },
+    { name:'Child Care Cost Helper',           category:'Family',    status:'Family helper',    path:'childcare/index.html',                   url:'https://childcare.niuruihua.com', accent:'15, 159, 130', icon:'childcare',    description:'A practical calculator for turning child care fees and subsidy questions into numbers that are easier to reason about.',      tags:['CCS','Costs','Family'] },
+    { name:'FinCalc',                          category:'Finance',   status:'Money helper',     path:'finance-calculator/index.html',          url:'https://finance.niuruihua.com', accent:'37, 99, 235',  icon:'finance',      description:'My loan and repayment playground for quickly comparing mortgages, car loans, personal loans, and what-if scenarios.',         tags:['Loans','Repayments','Money'] },
+    { name:'Road Quality Explorer',            category:'Maps',      status:'Map experiment',   path:'road-quality/index.html',                url:'https://tools.niuruihua.com', accent:'199, 123, 22', icon:'map',          description:'A map-first experiment for seeing road quality and surface context in a more visual, browseable way.',                       tags:['Roads','Maps','Quality'] },
+    { name:'Solar System Playground',          category:'Explore',   status:'Fun build',        path:'Solar-System-Visualization/index.html',  url:'https://solar.niuruihua.com', accent:'117, 87, 216', icon:'space',        description:'A curious, visual space project for exploring planets, comparisons, and a bit of cosmic scale for fun.',                     tags:['Space','Planets','Learning'] },
+    { name:'Transaction Analyzer Lab',         category:'Finance',   status:'Personal finance', path:'transaction-analyser/index.html',        url:'https://transaction.niuruihua.com', accent:'2, 132, 199',  icon:'transactions', description:'A more hands-on place to load bank exports and explore spending patterns when I want to dig into the details.',              tags:['Statements','Spending','Analysis'] },
+    { name:'Spending Storyboard',              category:'Finance',   status:'Dashboard',        path:'transaction-analyser-simple/index.html', url:'https://transaction-simple.niuruihua.com', accent:'14, 116, 144', icon:'transactions', description:'A polished report-style dashboard for turning transaction data into trends, merchant insights, and useful review prompts.',    tags:['Dashboard','Charts','Insights'] },
+    { name:'World Roads Explorer',             category:'Maps',      status:'Map tool',         path:'world-roads/index.html',                 url:'https://road.niuruihua.com', accent:'73, 119, 79',  icon:'map',          description:'A wider road-surface explorer for panning around the world and learning what the map data says about local roads.',           tags:['Roads','World','Explore'] }
+  ];
+
+  const categories = ['All', ...Array.from(new Set(tools.map(t => t.category)))];
+  const grid        = document.querySelector('#tool-grid');
+  const chipsEl     = document.querySelector('#chips');
+  const searchInput = document.querySelector('#search');
+  const emptyState  = document.querySelector('#empty-state');
+  const summary     = document.querySelector('#result-summary');
+  const gridBtn     = document.querySelector('#grid-view');
+  const listBtn     = document.querySelector('#list-view');
+  let activeCategory = 'All';
+
+  function openTool(url) {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  function renderChips() {
+    chipsEl.innerHTML = categories.map(cat => {
+      const count = cat === 'All' ? tools.length : tools.filter(t => t.category === cat).length;
+      return `<button class="chip${cat === activeCategory ? ' active' : ''}" type="button" data-category="${cat}"><span>${cat}</span><span class="chip-count">${count}</span></button>`;
+    }).join('');
+  }
+
+  function matches(tool, q) {
+    return [tool.name, tool.category, tool.status, tool.description, ...tool.tags].join(' ').toLowerCase().includes(q.toLowerCase());
+  }
+
+  function resolveToolHref(tool) {
+    return tool.url.startsWith('http://') || tool.url.startsWith('https://')
+      ? tool.url
+      : `https://${tool.url}`;
+  }
+
+  function renderTools() {
+    const q = searchInput.value.trim();
+    const isCompact = grid.classList.contains('compact');
+    const filtered = tools.filter(t => (activeCategory === 'All' || t.category === activeCategory) && matches(t, q));
+
+    grid.innerHTML = filtered.map(tool => `
+      <article class="tool-card" style="--accent-rgb:${tool.accent}" onclick="openTool('${resolveToolHref(tool)}')" tabindex="0" role="link" aria-label="Open ${tool.name}">
+        <div class="tool-top">
+          <span class="icon" aria-hidden="true">${icons[tool.icon]}</span>
+          <span class="status"><span class="status-dot"></span>${tool.status}</span>
+        </div>
+        <div class="tool-body">
+          <h3>${tool.name}</h3>
+          <p>${tool.description}</p>
+          ${!isCompact ? `<div class="tags" aria-label="${tool.name} tags">${tool.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
+        </div>
+        <div class="tool-actions">
+          <a class="open-tool" href="${resolveToolHref(tool)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
+            Open <svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+        </div>
+      </article>
+    `).join('');
+
+    emptyState.classList.toggle('visible', filtered.length === 0);
+    const noun = filtered.length === 1 ? 'tool' : 'tools';
+    summary.textContent = (q || activeCategory !== 'All')
+      ? `Showing ${filtered.length} ${noun}${activeCategory !== 'All' ? ` in ${activeCategory}` : ''}${q ? ` matching "${q}"` : ''}.`
+      : 'Showing every tool in my personal collection.';
+  }
+
+  chipsEl.addEventListener('click', e => {
+    const btn = e.target.closest('button[data-category]');
+    if (!btn) return;
+    activeCategory = btn.dataset.category;
+    renderChips();
+    renderTools();
+  });
+
+  searchInput.addEventListener('input', renderTools);
+
+  gridBtn.addEventListener('click', () => {
+    grid.classList.remove('compact');
+    gridBtn.classList.add('active');
+    listBtn.classList.remove('active');
+    renderTools();
+  });
+
+  listBtn.addEventListener('click', () => {
+    grid.classList.add('compact');
+    listBtn.classList.add('active');
+    gridBtn.classList.remove('active');
+    renderTools();
+  });
+
+  // Keyboard: Enter on card navigates
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.classList.contains('tool-card')) e.target.click();
+  });
+
+  renderChips();
+  renderTools();
+</script>
+</body>
+</html>
