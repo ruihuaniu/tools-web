@@ -49,32 +49,24 @@
     button, input { font: inherit; }
 
     /* ═══════════════════════════════════════
-       VIEW TOGGLE SWITCH (floating pill)
+       VIEW TOGGLE SWITCH (inline)
     ═══════════════════════════════════════ */
-    #view-switcher {
-      position: fixed;
-      top: 18px;
-      right: 22px;
-      z-index: 1000;
+    .view-switcher {
       display: flex;
       align-items: center;
-      gap: 9px;
-      padding: 6px 8px 6px 12px;
-      border-radius: 999px;
-      background: rgba(13,20,33,0.82);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+      gap: 8px;
       user-select: none;
+      flex-shrink: 0;
     }
-    #view-switcher .sw-label {
+    .sw-label {
       font-size: 11.5px;
       font-weight: 600;
-      color: rgba(255,255,255,0.7);
       letter-spacing: 0.04em;
       white-space: nowrap;
     }
+    .view-switcher--dark .sw-label { color: rgba(255,255,255,0.55); }
+    .view-switcher--light .sw-label { color: #3a4a60; }
+
     .toggle-track {
       width: 42px; height: 24px;
       border-radius: 999px;
@@ -96,8 +88,11 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.3);
     }
     .toggle-track.on .toggle-thumb { transform: translateX(18px); }
-    .sw-icon { font-size: 14px; color: rgba(255,255,255,0.55); }
-    .sw-icon.active { color: rgba(255,255,255,0.9); }
+    .view-switcher--light .toggle-track {
+      background: rgba(30,45,72,0.1);
+      border-color: rgba(30,45,72,0.18);
+    }
+    .view-switcher--light .toggle-track.on { background: rgba(37,99,235,0.75); border-color: rgba(37,99,235,0.5); }
 
     /* ═══════════════════════════════════════
        CANVAS VIEW — TRUE FULLSCREEN
@@ -359,12 +354,6 @@
     #classic-view { display: none; position: relative; z-index: 1; }
     #classic-view.visible { display: block; }
 
-    /* Switcher mobile tweaks */
-    @media (max-width: 480px) {
-      #view-switcher { top: 10px; right: 10px; padding: 5px 7px 5px 10px; gap: 6px; }
-      #view-switcher .sw-label { font-size: 10.5px; }
-    }
-
     /* ── TOPBAR ── */
     .topbar {
       position: sticky; top: 0; z-index: 40;
@@ -514,16 +503,6 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════════
-     FLOATING VIEW SWITCHER
-═══════════════════════════════════ -->
-<div id="view-switcher" role="region" aria-label="View switcher">
-  <span class="sw-label">Canvas</span>
-  <div class="toggle-track on" id="toggle-track" role="switch" aria-checked="true" tabindex="0" aria-label="Toggle between Canvas and Classic view">
-    <div class="toggle-thumb"></div>
-  </div>
-  <span class="sw-label">Classic</span>
-</div>
 
 <!-- ═══════════════════════════════════
      CANVAS VIEW
@@ -541,7 +520,16 @@
           <div class="win-dot win-dot-g"></div>
         </div>
         <div class="win-title-center">My Tools — Personal Workspace</div>
-        <div class="win-clock" id="win-clock"></div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="win-clock" id="win-clock"></div>
+          <div class="view-switcher view-switcher--dark" role="region" aria-label="View switcher">
+            <span class="sw-label">Canvas</span>
+            <div class="toggle-track on" id="toggle-track" role="switch" aria-checked="true" tabindex="0" aria-label="Toggle between Canvas and Classic view">
+              <div class="toggle-thumb"></div>
+            </div>
+            <span class="sw-label">Classic</span>
+          </div>
+        </div>
       </div>
 
       <!-- Main canvas body -->
@@ -581,6 +569,13 @@
         <nav class="nav" aria-label="Page sections">
           <a href="#tools">Browse</a>
           <a href="#categories">Categories</a>
+          <div class="view-switcher view-switcher--light" role="region" aria-label="View switcher" style="margin:0 4px;">
+            <span class="sw-label">Canvas</span>
+            <div class="toggle-track" id="toggle-track-classic" role="switch" aria-checked="false" tabindex="0" aria-label="Toggle between Canvas and Classic view">
+              <div class="toggle-thumb"></div>
+            </div>
+            <span class="sw-label">Classic</span>
+          </div>
           <a class="nav-cta" href="#tools">
             Launch a tool
             <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -592,7 +587,7 @@
     <main>
       <section class="hero" aria-labelledby="page-title">
         <div>
-          <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>8 tools ready to launch</span>
+          <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>7 tools ready to launch</span>
           <h1 id="page-title">A <span class="accent-word">playful</span> shelf of tools I built for real life.</h1>
           <p class="hero-body">I'm a software engineer — so naturally a small inconvenience becomes a web app. Calculators, maps, dashboards, planners, and a few things just for fun.</p>
           <div class="hero-actions">
@@ -610,7 +605,7 @@
       </section>
 
       <section class="stats-strip" aria-label="Tool hub stats">
-        <div class="stat"><strong>8</strong><span>Personal tools in this little workshop.</span></div>
+        <div class="stat"><strong>7</strong><span>Personal tools in this little workshop.</span></div>
         <div class="stat"><strong>5</strong><span>Built for quick everyday convenience.</span></div>
         <div class="stat"><strong>3</strong><span>Made because the idea was fun enough to build.</span></div>
         <div class="stat"><strong>5</strong><span>Ways to jump into the right helper fast.</span></div>
@@ -685,11 +680,10 @@ const tools = [
   { name:'Victoria Calendar I Actually Use', short:'Calendar',     url:'https://calendar.niuruihua.com',           accent:'220,63,108', svgKey:'calendar',  iconSvg:'calendar',     category:'Planning', status:'Planning helper',  desc:'A clean date companion for checking Victorian school terms, holidays, and plans.', tags:['Dates','Victoria','Plans'],      bg:'linear-gradient(135deg,#e03668 0%,#b01048 100%)' },
   { name:'Child Care Cost Helper',           short:'Child Care',   url:'https://childcare.niuruihua.com',          accent:'15,159,130', svgKey:'heart',     iconSvg:'childcare',    category:'Family',   status:'Family helper',    desc:'Turn child care fees and subsidy questions into easy numbers.', tags:['CCS','Costs','Family'],          bg:'linear-gradient(135deg,#0f9f82 0%,#0a7060 100%)' },
   { name:'FinCalc',                          short:'FinCalc',      url:'https://finance.niuruihua.com',            accent:'37,99,235',  svgKey:'barchart',  iconSvg:'finance',      category:'Finance',  status:'Money helper',     desc:'Loan and repayment playground for mortgages, car loans, and what-if scenarios.', tags:['Loans','Repayments','Money'],    bg:'linear-gradient(135deg,#2563eb 0%,#1a3fa8 100%)' },
-  { name:'Road Quality Explorer',            short:'Road Quality', url:'https://tools.niuruihua.com',              accent:'199,123,22', svgKey:'map',       iconSvg:'map',          category:'Maps',     status:'Map experiment',   desc:'See road quality and surface context in a visual, browseable way.', tags:['Roads','Maps','Quality'],        bg:'linear-gradient(135deg,#c77b16 0%,#8c540a 100%)' },
   { name:'Solar System Playground',          short:'Solar System', url:'https://solar.niuruihua.com',              accent:'117,87,216', svgKey:'planet',    iconSvg:'space',        category:'Explore',  status:'Fun build',        desc:'Explore planets, comparisons, and cosmic scale for fun.', tags:['Space','Planets','Learning'],     bg:'linear-gradient(135deg,#7557d8 0%,#4a33a8 100%)' },
   { name:'Transaction Analyzer Lab',         short:'Transactions', url:'https://transaction.niuruihua.com',        accent:'2,132,199',  svgKey:'receipt',   iconSvg:'transactions', category:'Finance',  status:'Personal finance', desc:'Load bank exports and explore spending patterns in detail.', tags:['Statements','Spending','Analysis'],bg:'linear-gradient(135deg,#0284c7 0%,#015a8a 100%)' },
   { name:'Spending Storyboard',              short:'Storyboard',   url:'https://transaction-simple.niuruihua.com', accent:'14,116,144', svgKey:'dashboard', iconSvg:'transactions', category:'Finance',  status:'Dashboard',        desc:'Report-style dashboard turning transactions into trends and merchant insights.', tags:['Dashboard','Charts','Insights'], bg:'linear-gradient(135deg,#0e7490 0%,#085467 100%)' },
-  { name:'World Roads Explorer',             short:'World Roads',  url:'https://road.niuruihua.com',               accent:'73,119,79',  svgKey:'world',     iconSvg:'map',          category:'Maps',     status:'Map tool',         desc:'Pan around the world and learn what map data says about local road surfaces.', tags:['Roads','World','Explore'],       bg:'linear-gradient(135deg,#49774f 0%,#2c4d30 100%)' }
+  { name:'Road Quality',                     short:'Road Quality', url:'https://road.niuruihua.com',               accent:'73,119,79',  svgKey:'world',     iconSvg:'map',          category:'Maps',     status:'Map tool',         desc:'Pan around the world and learn what map data says about local road surfaces.', tags:['Roads','World','Explore'],       bg:'linear-gradient(135deg,#49774f 0%,#2c4d30 100%)' }
 ];
 
 const classicIcons = {
@@ -703,36 +697,35 @@ const classicIcons = {
 
 /* ─── VIEW TOGGLE ─── */
 let isCanvas = true;
-const toggleTrack = document.getElementById('toggle-track');
+const toggleTrack        = document.getElementById('toggle-track');
+const toggleTrackClassic = document.getElementById('toggle-track-classic');
 const canvasView  = document.getElementById('canvas-view');
 const classicView = document.getElementById('classic-view');
-const switcher    = document.getElementById('view-switcher');
 
 function setView(canvas) {
   isCanvas = canvas;
+  // Canvas toggle: "on" = classic (right), off = canvas (left)
   toggleTrack.classList.toggle('on', !canvas);
   toggleTrack.setAttribute('aria-checked', (!canvas).toString());
+  // Classic toggle mirrors same state
+  toggleTrackClassic.classList.toggle('on', !canvas);
+  toggleTrackClassic.setAttribute('aria-checked', (!canvas).toString());
 
   if (canvas) {
     canvasView.classList.remove('hidden');
     classicView.classList.remove('visible');
     document.body.style.overflow = 'hidden';
-    switcher.style.background = 'rgba(13,20,33,0.82)';
-    switcher.style.border = '1px solid rgba(255,255,255,0.12)';
-    switcher.querySelectorAll('.sw-label').forEach(el => { el.style.color = 'rgba(255,255,255,0.7)'; });
   } else {
     canvasView.classList.add('hidden');
     classicView.classList.add('visible');
     document.body.style.overflow = '';
-    switcher.style.background = 'rgba(255,255,255,0.92)';
-    switcher.style.border = '1px solid rgba(30,45,72,0.14)';
-    switcher.style.boxShadow = '0 4px 16px rgba(20,30,55,0.14)';
-    switcher.querySelectorAll('.sw-label').forEach(el => { el.style.color = '#3a4a60'; });
   }
 }
 
 toggleTrack.addEventListener('click', () => setView(!isCanvas));
 toggleTrack.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') { e.preventDefault(); setView(!isCanvas); } });
+toggleTrackClassic.addEventListener('click', () => setView(!isCanvas));
+toggleTrackClassic.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') { e.preventDefault(); setView(!isCanvas); } });
 
 // Canvas is default — lock body scroll
 document.body.style.overflow = 'hidden';
@@ -802,17 +795,17 @@ const canvasGrid = document.getElementById('apps-canvas-grid');
 
 function renderCanvasTiles() {
   canvasGrid.innerHTML = '';
-  tools.forEach(t => {
-    const filtered = activeCanvasCat !== 'All' && t.category !== activeCanvasCat;
-    const tile = document.createElement('div');
-    tile.className = 'app-tile' + (filtered ? ' filtered-out' : '');
-    tile.innerHTML = `
-      <div class="app-tile-icon" style="background:${t.bg}" aria-hidden="true">
-        ${SVG[t.svgKey]}
-      </div>
-      <span class="app-tile-name">${t.short}</span>
-    `;
-    if (!filtered) {
+  tools
+    .filter(t => activeCanvasCat === 'All' || t.category === activeCanvasCat)
+    .forEach(t => {
+      const tile = document.createElement('div');
+      tile.className = 'app-tile';
+      tile.innerHTML = `
+        <div class="app-tile-icon" style="background:${t.bg}" aria-hidden="true">
+          ${SVG[t.svgKey]}
+        </div>
+        <span class="app-tile-name">${t.short}</span>
+      `;
       tile.addEventListener('mouseenter', e => showTooltip(t, e));
       tile.addEventListener('mousemove',  moveTooltip);
       tile.addEventListener('mouseleave', hideTooltip);
@@ -827,9 +820,8 @@ function renderCanvasTiles() {
         setTimeout(()=>ripple.remove(), 560);
         setTimeout(()=>window.open(t.url,'_blank','noopener,noreferrer'), 160);
       });
-    }
-    canvasGrid.appendChild(tile);
-  });
+      canvasGrid.appendChild(tile);
+    });
 }
 renderCanvasTiles();
 
