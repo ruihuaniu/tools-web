@@ -524,7 +524,8 @@
           <div class="win-clock" id="win-clock"></div>
           <div class="view-switcher view-switcher--dark" role="region" aria-label="View switcher">
             <span class="sw-label">Canvas</span>
-            <div class="toggle-track on" id="toggle-track" role="switch" aria-checked="true" tabindex="0" aria-label="Toggle between Canvas and Classic view">
+            <div class="toggle-track" id="toggle-track" role="switch" aria-checked="false" tabindex="0"
+              aria-label="Toggle between Canvas and Classic view">
               <div class="toggle-thumb"></div>
             </div>
             <span class="sw-label">Classic</span>
@@ -726,6 +727,8 @@ toggleTrack.addEventListener('click', () => setView(!isCanvas));
 toggleTrack.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') { e.preventDefault(); setView(!isCanvas); } });
 toggleTrackClassic.addEventListener('click', () => setView(!isCanvas));
 toggleTrackClassic.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') { e.preventDefault(); setView(!isCanvas); } });
+
+  setView(isCanvas);
 
 // Canvas is default — lock body scroll
 document.body.style.overflow = 'hidden';
