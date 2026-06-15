@@ -907,7 +907,7 @@
     <main>
       <section class="hero" aria-labelledby="page-title">
         <div>
-          <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>7 tools ready to launch</span>
+          <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>12 tools ready to launch</span>
           <h1 id="page-title">A <span class="accent-word">playful</span> shelf of tools I built for real life.</h1>
           <p class="hero-body">I'm a software engineer — so naturally a small inconvenience becomes a web app. Calculators, maps, dashboards, planners, and a few things just for fun.</p>
           <div class="hero-actions">
@@ -925,10 +925,10 @@
       </section>
 
       <section class="stats-strip" aria-label="Tool hub stats">
-        <div class="stat"><strong>7</strong><span>Personal tools in this little workshop.</span></div>
-        <div class="stat"><strong>5</strong><span>Built for quick everyday convenience.</span></div>
-        <div class="stat"><strong>3</strong><span>Made because the idea was fun enough to build.</span></div>
-        <div class="stat"><strong>5</strong><span>Ways to jump into the right helper fast.</span></div>
+        <div class="stat"><strong>12</strong><span>Personal tools in this little workshop.</span></div>
+        <div class="stat"><strong>7</strong><span>Ways to browse by use case or curiosity.</span></div>
+        <div class="stat"><strong>4</strong><span>Money and data helpers for practical decisions.</span></div>
+        <div class="stat"><strong>3</strong><span>Map and place explorers for spatial tinkering.</span></div>
       </section>
 
       <section class="workspace" id="categories" aria-label="Tool browser">
@@ -1018,13 +1018,19 @@ const SVG = {
 };
 
 const tools = [
-  { name:'Victoria Calendar I Actually Use', short:'Calendar',     url:'https://calendar.niuruihua.com',           accent:'220,63,108', svgKey:'calendar',  iconSvg:'calendar',     category:'Planning', status:'Planning helper',  desc:'A clean date companion for checking Victorian school terms, holidays, and plans.', tags:['Dates','Victoria','Plans'],      bg:'linear-gradient(135deg,#e03668 0%,#b01048 100%)' },
-  { name:'Child Care Cost Helper',           short:'Child Care',   url:'https://childcare.niuruihua.com',          accent:'15,159,130', svgKey:'heart',     iconSvg:'childcare',    category:'Family',   status:'Family helper',    desc:'Turn child care fees and subsidy questions into easy numbers.', tags:['CCS','Costs','Family'],          bg:'linear-gradient(135deg,#0f9f82 0%,#0a7060 100%)' },
-  { name:'FinCalc',                          short:'FinCalc',      url:'https://finance.niuruihua.com',            accent:'37,99,235',  svgKey:'barchart',  iconSvg:'finance',      category:'Finance',  status:'Money helper',     desc:'Loan and repayment playground for mortgages, car loans, and what-if scenarios.', tags:['Loans','Repayments','Money'],    bg:'linear-gradient(135deg,#2563eb 0%,#1a3fa8 100%)' },
-  { name:'Solar System Playground',          short:'Solar System', url:'https://solar.niuruihua.com',              accent:'117,87,216', svgKey:'planet',    iconSvg:'space',        category:'Explore',  status:'Fun build',        desc:'Explore planets, comparisons, and cosmic scale for fun.', tags:['Space','Planets','Learning'],     bg:'linear-gradient(135deg,#7557d8 0%,#4a33a8 100%)' },
-  { name:'Transaction Analyzer Lab',         short:'Transactions', url:'https://transaction.niuruihua.com',        accent:'2,132,199',  svgKey:'receipt',   iconSvg:'transactions', category:'Finance',  status:'Personal finance', desc:'Load bank exports and explore spending patterns in detail.', tags:['Statements','Spending','Analysis'],bg:'linear-gradient(135deg,#0284c7 0%,#015a8a 100%)' },
-  { name:'Spending Storyboard',              short:'Storyboard',   url:'https://transaction-simple.niuruihua.com', accent:'14,116,144', svgKey:'dashboard', iconSvg:'transactions', category:'Finance',  status:'Dashboard',        desc:'Report-style dashboard turning transactions into trends and merchant insights.', tags:['Dashboard','Charts','Insights'], bg:'linear-gradient(135deg,#0e7490 0%,#085467 100%)' },
-  { name:'Road Quality',                     short:'Road Quality', url:'https://road.niuruihua.com',               accent:'73,119,79',  svgKey:'world',     iconSvg:'map',          category:'Maps',     status:'Map tool',         desc:'Pan around the world and learn what map data says about local road surfaces.', tags:['Roads','World','Explore'],       bg:'linear-gradient(135deg,#49774f 0%,#2c4d30 100%)' }
+  { name: 'Victoria Calendar I Actually Use', short: 'Calendar', url: 'https://calendar.niuruihua.com', accent: '220,63,108', svgKey: 'calendar', iconSvg: 'calendar', category: 'Planning', status: 'Planning helper', desc: 'A clean date companion for checking Victorian school terms, holidays, and plans.', tags: ['Dates', 'Victoria', 'Plans'], bg: 'linear-gradient(135deg,#e03668 0%,#b01048 100%)' },
+  { name: 'Child Care Cost Helper', short: 'Child Care', url: 'https://childcare.niuruihua.com', accent: '15,159,130', svgKey: 'heart', iconSvg: 'childcare', category: 'Family', status: 'Family helper', desc: 'Turn child care fees and subsidy questions into easy numbers.', tags: ['CCS', 'Costs', 'Family'], bg: 'linear-gradient(135deg,#0f9f82 0%,#0a7060 100%)' },
+  { name: 'FinCalc', short: 'FinCalc', url: 'https://finance.niuruihua.com', accent: '37,99,235', svgKey: 'barchart', iconSvg: 'finance', category: 'Finance', status: 'Money helper', desc: 'Loan and repayment playground for mortgages, car loans, and what-if scenarios.', tags: ['Loans', 'Repayments', 'Money'], bg: 'linear-gradient(135deg,#2563eb 0%,#1a3fa8 100%)' },
+  { name: 'ETF Lens', short: 'ETF Lens', url: 'https://etf.niuruihua.com', accent: '28,113,216', svgKey: 'barchart', iconSvg: 'finance', category: 'Finance', status: 'Investing lens', desc: 'Compare ETFs, risk, return, drawdowns, and long-term performance without reaching for a spreadsheet.', tags: ['ETFs', 'Charts', 'Risk'], bg: 'linear-gradient(135deg,#1c71d8 0%,#164a9b 100%)' },
+
+  { name: 'Melbourne Suburbs Map', short: 'Melbourne', url: 'https://melbourne.niuruihua.com', accent: '199,123,22', svgKey: 'map', iconSvg: 'map', category: 'Maps', status: 'Place explorer', desc: 'A Melbourne suburbs map for exploring local geography, suburb boundaries, and place context visually.', tags: ['Melbourne', 'Suburbs', 'Map'], bg: 'linear-gradient(135deg,#c77b16 0%,#8a4d0c 100%)' },
+  { name: 'Road Quality Explorer', short: 'Road Quality', url: 'https://road.niuruihua.com', accent: '113,92,40', svgKey: 'map', iconSvg: 'map', category: 'Maps', status: 'Road map', desc: 'A focused road-quality map for quickly seeing surface context and transport details.', tags: ['Roads', 'Quality', 'Map'], bg: 'linear-gradient(135deg,#715c28 0%,#443817 100%)' },
+  { name: 'Solar System Playground', short: 'Solar System', url: 'https://solar.niuruihua.com', accent: '117,87,216', svgKey: 'planet', iconSvg: 'space', category: 'Explore', status: 'Fun build', desc: 'Explore planets, comparisons, and cosmic scale for fun.', tags: ['Space', 'Planets', 'Learning'], bg: 'linear-gradient(135deg,#7557d8 0%,#4a33a8 100%)' },
+  { name: 'Transaction Analyzer Lab', short: 'Transactions', url: 'https://transaction.niuruihua.com', accent: '2,132,199', svgKey: 'receipt', iconSvg: 'transactions', category: 'Finance', status: 'Personal finance', desc: 'Load bank exports and explore spending patterns in detail.', tags: ['Statements', 'Spending', 'Analysis'], bg: 'linear-gradient(135deg,#0284c7 0%,#015a8a 100%)' },
+  { name: 'Spending Storyboard', short: 'Storyboard', url: 'https://transaction-simple.niuruihua.com', accent: '14,116,144', svgKey: 'dashboard', iconSvg: 'transactions', category: 'Finance', status: 'Dashboard', desc: 'Report-style dashboard turning transactions into trends and merchant insights.', tags: ['Dashboard', 'Charts', 'Insights'], bg: 'linear-gradient(135deg,#0e7490 0%,#085467 100%)' },
+  { name: 'World Roads Explorer', short: 'World Roads', url: 'https://road.niuruihua.com', accent: '73,119,79', svgKey: 'world', iconSvg: 'map', category: 'Maps', status: 'World map', desc: 'Pan around the world and learn what map data says about local road surfaces.', tags: ['Roads', 'World', 'Explore'], bg: 'linear-gradient(135deg,#49774f 0%,#2c4d30 100%)' },
+  { name: 'Health Care Shelf', short: 'Health Care', url: 'https://health.niuruihua.com', accent: '16,155,115', svgKey: 'heart', iconSvg: 'childcare', category: 'Health', status: 'Care explorer', desc: 'A health product browsing project for trying search, product details, and care-focused shopping flows.', tags: ['Health', 'Products', 'Search'], bg: 'linear-gradient(135deg,#109b73 0%,#0a6755 100%)' },
+  { name: 'NRH Music', short: 'Music', url: 'https://music.niuruihua.com', accent: '219,54,104', svgKey: 'planet', iconSvg: 'space', category: 'Music', status: 'Music player', desc: 'A music player practice project with playlists, search, lyrics, favourites, and offline-friendly ideas.', tags: ['Music', 'Playlists', 'Offline'], bg: 'linear-gradient(135deg,#db3668 0%,#8d245f 100%)' }
 ];
 
 const classicIcons = {
@@ -1234,7 +1240,7 @@ renderCanvasTiles();
 
 /* ─── CANVAS: DOCK ─── */
 const dockEl = document.getElementById('win-dock');
-const dockTools = [tools[0], tools[2], tools[4], tools[6]];
+  const dockTools = [tools[0], tools[2], tools[4], tools[1]];
 dockTools.forEach((t, i) => {
   const d = document.createElement('div');
   d.className = 'dock-item';
