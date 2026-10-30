@@ -47,6 +47,9 @@
       background: var(--bg);
       -webkit-font-smoothing: antialiased;
     }
+    body.canvas-mode {
+      background: linear-gradient(145deg, #0d1421 0%, #161f35 40%, #0e1c30 70%, #131a2e 100%);
+    }
     a { color: inherit; text-decoration: none; }
     button, input { font: inherit; }
 
@@ -1072,6 +1075,7 @@ const classicView = document.getElementById('classic-view');
 
 function setView(canvas) {
   isCanvas = canvas;
+  document.body.classList.toggle('canvas-mode', canvas);
   // Canvas toggle: "on" = classic (right), off = canvas (left)
   toggleTrack.classList.toggle('on', !canvas);
   toggleTrack.setAttribute('aria-checked', (!canvas).toString());
