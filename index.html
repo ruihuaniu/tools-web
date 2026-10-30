@@ -907,7 +907,7 @@
     <main>
       <section class="hero" aria-labelledby="page-title">
         <div>
-          <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>12 tools ready to launch</span>
+          <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>15 tools ready to launch</span>
           <h1 id="page-title">A <span class="accent-word">playful</span> shelf of tools I built for real life.</h1>
           <p class="hero-body">I'm a software engineer — so naturally a small inconvenience becomes a web app. Calculators, maps, dashboards, planners, and a few things just for fun.</p>
           <div class="hero-actions">
@@ -925,10 +925,10 @@
       </section>
 
       <section class="stats-strip" aria-label="Tool hub stats">
-        <div class="stat"><strong>14</strong><span>Personal tools in this little workshop.</span></div>
-        <div class="stat"><strong>7</strong><span>Ways to browse by use case or curiosity.</span></div>
-        <div class="stat"><strong>4</strong><span>Money and data helpers for practical decisions.</span></div>
-        <div class="stat"><strong>3</strong><span>Map and place explorers for spatial tinkering.</span></div>
+        <div class="stat"><strong>15</strong><span>Personal tools in this little workshop.</span></div>
+        <div class="stat"><strong>9</strong><span>Ways to browse by use case or curiosity.</span></div>
+        <div class="stat"><strong>5</strong><span>Money and data helpers for practical decisions.</span></div>
+        <div class="stat"><strong>2</strong><span>Map and place explorers for spatial tinkering.</span></div>
       </section>
 
       <section class="workspace" id="categories" aria-label="Tool browser">
@@ -1016,11 +1016,10 @@ const SVG = {
   planet:       `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5"/><path d="M3.5 8C6 7 10 8 14 11s6 7 5.5 9.5M20.5 8C18 7 14 8 10 11S4 18 4.5 20.5"/></svg>`,
   receipt:      `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 21V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16l-3-2-2 2-2-2-2 2-2-2-3 2z"/><path d="M9 9h6M9 13h4"/></svg>`,
   dashboard:    `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 17h7M17 14v7"/></svg>`,
-  world: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>`,
   stethoscope: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 6.375a4.125 4.125 0 0 0 8.25 0"/><path d="M8.625 6.375v7.5a5.25 5.25 0 0 0 5.25 5.25v0a5.25 5.25 0 0 0 5.25-5.25v-1.5"/><circle cx="19.125" cy="11.625" r="1.5"/></svg>`,
   meter: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M8 8l4 4 4-4"/><path d="M12 12v5"/><circle cx="12" cy="12" r="2.5"/></svg>`,
   economy: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 20h16"/><path d="M7 16V9"/><path d="M12 16V5"/><path d="M17 16v-3"/><path d="M4 5h16"/></svg>`,
-  music: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`
+  music: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
 };
 
 const tools = [
@@ -1042,9 +1041,10 @@ const tools = [
 
   { name: 'Utility Meter', short: 'Utility Meter', url: 'https://utility.niuruihua.com', accent: '17,94,184', svgKey: 'meter', iconSvg: 'meter', category: 'Utilities', status: 'Utility helper', desc: 'Track utility usage and compare costs with a simple meter-style dashboard.', tags: ['Utilities', 'Usage', 'Costs'], bg: 'linear-gradient(135deg,#115eb8 0%,#0b4a90 100%)' },
 
-  { name: 'World Roads Explorer', short: 'World Roads', url: 'https://road.niuruihua.com', accent: '73,119,79', svgKey: 'world', iconSvg: 'world', category: 'Maps', status: 'World map', desc: 'Pan around the world and learn what map data says about local road surfaces.', tags: ['Roads', 'World', 'Explore'], bg: 'linear-gradient(135deg,#49774f 0%,#2c4d30 100%)' },
   { name: 'Health Care Shelf', short: 'Health Care', url: 'https://health.niuruihua.com', accent: '16,155,115', svgKey: 'stethoscope', iconSvg: 'stethoscope', category: 'Health', status: 'Care explorer', desc: 'A health product browsing project for trying search, product details, and care-focused shopping flows.', tags: ['Health', 'Products', 'Search'], bg: 'linear-gradient(135deg,#109b73 0%,#0a6755 100%)' },
-  { name: 'NRH Music', short: 'Music', url: 'https://music.niuruihua.com', accent: '219,54,104', svgKey: 'music', iconSvg: 'music', category: 'Music', status: 'Music player', desc: 'A music player practice project with playlists, search, lyrics, favourites, and offline-friendly ideas.', tags: ['Music', 'Playlists', 'Offline'], bg: 'linear-gradient(135deg,#db3668 0%,#8d245f 100%)' }
+  { name: 'NRH Music', short: 'Music', url: 'https://music.niuruihua.com', accent: '219,54,104', svgKey: 'music', iconSvg: 'music', category: 'Music', status: 'Music player', desc: 'A music player practice project with playlists, search, lyrics, favourites, and offline-friendly ideas.', tags: ['Music', 'Playlists', 'Offline'], bg: 'linear-gradient(135deg,#db3668 0%,#8d245f 100%)' },
+  { name: 'Report Library', short: 'Reports', url: 'https://research-report.niuruihua.com', accent: '92,57,200', svgKey: 'dashboard', iconSvg: 'report', category: 'Reports', status: 'Research library', desc: 'Browse and open standalone research reports from one organized library.', tags: ['Research', 'Reports', 'Library'], bg: 'linear-gradient(135deg,#5c39c8 0%,#3f288f 100%)' },
+  { name: 'SCALE: From Human Body to Quark', short: 'SCALE', url: 'https://origin-explorer.niuruihua.com', accent: '117,87,216', svgKey: 'planet', iconSvg: 'space', category: 'Explore', status: 'Scale explorer', desc: 'Take an interactive 3D journey across twelve orders of magnitude, from the human body to quarks.', tags: ['Science', '3D', 'Scale'], bg: 'linear-gradient(135deg,#7557d8 0%,#4a33a8 100%)' }
 ];
 
 const classicIcons = {
@@ -1059,7 +1059,8 @@ const classicIcons = {
   stethoscope: '<svg viewBox="0 0 24 24"><path d="M4.5 6.375a4.125 4.125 0 0 0 8.25 0"/><path d="M8.625 6.375v7.5a5.25 5.25 0 0 0 5.25 5.25v0a5.25 5.25 0 0 0 5.25-5.25v-1.5"/><circle cx="19.125" cy="11.625" r="1.5"/></svg>',
   meter: '<svg viewBox="0 0 24 24"><path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M8 8l4 4 4-4"/><path d="M12 12v5"/><circle cx="12" cy="12" r="2.5"/></svg>',
   economy: '<svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 16V9"/><path d="M12 16V5"/><path d="M17 16v-3"/><path d="M4 5h16"/></svg>',
-  music: '<svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>'
+  music: '<svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+  report: '<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>'
 };
 
 /* ─── VIEW TOGGLE ─── */

@@ -1,0 +1,8 @@
+Excluded Tools
+
+Do not include these projects in the tools-web catalog, including future updates:
+
+- World Roads
+- Photography
+- Memory Tree
+- Shared Moments
